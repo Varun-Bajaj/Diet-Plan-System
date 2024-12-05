@@ -1,0 +1,120 @@
+from tkinter import *
+import tkinter.messagebox as tmsg
+from tkinter.ttk import Combobox
+import mysql.connector as con
+import time
+import pickle
+
+varun_1=Tk()
+
+varun_1.minsize(800,500)
+varun_1.title("DIET PLAN SYSTEM")
+
+def data():
+    f1=open("project.bin",'ab')
+    data1=[nameentry.get(),ageentry.get(),genderentry.get(),optionentry.get(),diseaseentry.get(),vnventry.get()]
+    pickle.dump(data1,f1)
+
+def open_top_toplevel():
+    top_1=Toplevel(varun_1,bg="royalblue",relief=FLAT,bd=5)
+    top_1.title("tk--text window")
+    top_1.minsize(300,300)
+    top_1.mainloop()
+
+def open_toplevel():
+    top=Toplevel(varun_1,bg="white",relief=FLAT,bd=5)
+    top.title("DIET PLAN SYSTEM")
+    top.minsize(800,500)
+    def getsvalue():
+        print("name=",namevalue.get().lower())
+        print("age=",agevalue.get().lower())
+        print("gender=",gendervalue.get().lower())
+        print("lose weight or gain weight=",optionvalue.get().lower())
+        print("disease=",diseasevalue.get().lower())
+        print("veg or non veg=",vnvvalue.get().lower())
+        bajaj1 = Label(text=("welcome",namevalue.get().upper()), font=("hindi", 20)).grid(column=2)
+    
+    def exit1():
+        exit()
+
+    sahil_12 = Label(top,text="WELCOME TO MY DIET PLAN SYSTEM",bg="black",fg="white",padx=20,pady=20,font=("algerian",13),borderwidth=
+                     3,relief=SUNKEN)
+
+    sahil_12.grid(column=2)
+
+    namevalue=StringVar()
+    agevalue=StringVar()
+    gendervalue=StringVar()
+    optionvalue=StringVar()
+    diseasevalue=StringVar()
+    vnvvalue=StringVar()
+
+    name= Label(top,text="name",font=("calibri",10)).grid(row=2)
+    age= Label(top,text="age",font=("calibri",10)).grid(row=3)
+    gender = Label(top,text="gender",font=("calibri",10)).grid(row=4)
+    vsb=Label(top,text="lose weight or gain weight",font=("calibri",10)).grid(row=5)
+    vb=Label(top,text="do you have any diseases", font=("calibri", 10)).grid(row=6)
+    vnv=Label(top,text="veg or non veg",font=("calibri",10)).grid(row=7)
+
+
+    def myfunc():
+        tmsg.askquestion("reveiw","was your experience good?")
+
+    nameentry = Entry(top,textvariable=namevalue).grid(row=2,column=2)
+    ageentry = Entry(top,textvariable=agevalue).grid(row=3,column=2)
+    genderentry = Combobox(top,textvariable=gendervalue,values=['Male','Female'],font=("calibri",10),state='r').grid(row=4,column=2)
+    optionentry=Combobox(top,textvariable=optionvalue,values=['Gain','Lose'],font=("calibri",10),state='r').grid(row=5,column=2)
+    diseaseentry=Entry(top,textvariable=diseasevalue).grid(row=6,column=2)
+    vnventry=Combobox(top,textvariable=vnvvalue,values=['Veg','Non-Veg'],font=("calibri",10),state='r').grid(row=7,column=2)
+
+    def data():
+        f1=open("project.bin",'ab')
+        data1=[namevalue.get(),agevalue.get(),gendervalue.get(),optionvalue.get(),diseasevalue.get(),vnvvalue.get()]
+        pickle.dump(data1,f1)
+
+    Button(top,text="submit", command=data and open_top_toplevel).grid(row=8, column=2)
+    Button(top,text="EXIT", command=exit1).grid(row=1, column=4)
+
+    
+
+    mainmenu=Menu(top)
+    m1=Menu(mainmenu,tearoff=0)
+    m1.add_command(label="review",command=myfunc)
+    m1.add_command(label="complain")
+    m1.add_command(label="suggestion")
+    top.config(menu=mainmenu)
+    mainmenu.add_cascade(label="feedback",menu=m1)
+    top.mainloop()
+
+
+        
+    #varun_1.title("DIET PLAN SYSTEM")
+
+button=Button(varun_1,text='user',command=open_toplevel).grid()
+lst=['admin','Admin@321']
+
+uservalue=StringVar()
+passvalue=StringVar()
+def admin():
+    
+    sahil_13 = Label(varun_1,text="USERNAME",bg="black",fg="white",padx=20,pady=20,font=("algerian",13),borderwidth=
+                     3,relief=SUNKEN).grid(row=3,column=2)
+    
+    sahil_14 = Label(varun_1,text="PASSWORD",bg="black",fg="white",padx=20,pady=20,font=("algerian",13),borderwidth=
+                     3,relief=SUNKEN).grid(row=4,column=2)
+
+    userentry=Entry(varun_1,textvariable=uservalue).grid(row=3,column=3)
+
+    passentry=Entry(varun_1,textvariable=passvalue).grid(row=4,column=3)
+
+    Button(varun_1,text='LOGIN',command=login).grid(row=5,column=2)
+
+def login():
+    if(uservalue.get()==lst[0] and passvalue.get()==lst[1]):
+        sahil_15=Label(varun_1,text='welcome varun',font=13).grid(row=6,column=3)
+
+    else:
+        sahil_16=Label(varun_1,text='incorrect username and password').grid(row=6,column=2)
+    
+button1=Button(varun_1,text='admin',command=admin).grid()
+varun_1.mainloop()
